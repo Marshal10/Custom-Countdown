@@ -6,6 +6,7 @@ const dateEl=document.getElementById('inputDate')
 
 const userCountdownTitle=document.getElementById('countdown-title')
 const timeElements=document.querySelectorAll('span')
+const resetBtn=document.getElementById('reset')
 
 
 let countdownTitle=''
@@ -41,7 +42,7 @@ function updateDom(){
         userCountdownTitle.textContent=countdownTitle
         inputContainer.hidden=true
         countdownContainer.hidden=false
-    },1000)
+    },second)
 }
 
 function updateCountdown(e){
@@ -54,4 +55,15 @@ function updateCountdown(e){
     updateDom()
 }
 
+function reset(){
+    inputContainer.hidden=false
+    countdownContainer.hidden=true
+    completeContainer.hidden=true
+
+    clearInterval(countdownInterval)
+    countdownTitle=''
+    countdownDate=''
+}
+
 formEl.addEventListener('submit',updateCountdown)
+resetBtn.addEventListener('click',reset)
