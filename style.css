@@ -36,7 +36,7 @@ video {
   background-color: rgba(255, 255, 255, 0.35);
 }
 
-.input-container {
+.main-container{
   min-width: 580px;
   min-height: 304px;
   background-color: rgba(255, 255, 255, 0.8);
@@ -95,4 +95,35 @@ button{
 
 button:hover{
   filter: brightness(110%);
+}
+
+/* .countdown{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+} */
+
+ul{
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+  gap: 10px;
+}
+
+li{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Nunito, sans-serif;
+}
+
+li span{
+  font-size: 80px;
+}
+
+li{
+  font-size: 30px;
+  list-style-type: none;
+  padding: 10px;
 }
