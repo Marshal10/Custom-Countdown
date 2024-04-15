@@ -8,6 +8,9 @@ const userCountdownTitle=document.getElementById('countdown-title')
 const timeElements=document.querySelectorAll('span')
 const resetBtn=document.getElementById('reset')
 
+const completeInfo=document.getElementById('complete-info')
+const newCountdownBtn=document.getElementById('new-countdown')
+
 
 let countdownTitle=''
 let countdownDate=''
@@ -28,20 +31,28 @@ function updateDom(){
     countdownInterval=setInterval(()=>{
         const now=new Date().getTime()
         const distance=countdownValue-now
-
-        const days=Math.floor(distance/day)
-        const hours=Math.floor((distance % day)/hour)
-        const minutes=Math.floor((distance % hour)/minute)
-        const seconds=Math.floor((distance % minute)/second)
-        
-        timeElements[0].textContent=days
-        timeElements[1].textContent=hours
-        timeElements[2].textContent=minutes
-        timeElements[3].textContent=seconds
-
-        userCountdownTitle.textContent=countdownTitle
         inputContainer.hidden=true
-        countdownContainer.hidden=false
+        if(distance<0){
+            clearInterval(countdownInterval)
+            completeInfo.textContent=`${countdownTitle} finished on ${countdownDate}`
+            inputContainer.hidden=true
+            countdownContainer.hidden=true
+            completeContainer.hidden=false
+        }else{
+            const days=Math.floor(distance/day)
+            const hours=Math.floor((distance % day)/hour)
+            const minutes=Math.floor((distance % hour)/minute)
+            const seconds=Math.floor((distance % minute)/second)
+            
+            timeElements[0].textContent=days
+            timeElements[1].textContent=hours
+            timeElements[2].textContent=minutes
+            timeElements[3].textContent=seconds
+    
+            userCountdownTitle.textContent=countdownTitle
+            countdownContainer.hidden=false
+            completeContainer.hidden=true
+        }
     },second)
 }
 
@@ -67,3 +78,4 @@ function reset(){
 
 formEl.addEventListener('submit',updateCountdown)
 resetBtn.addEventListener('click',reset)
+newCountdownBtn.addEventListener('click',reset)
