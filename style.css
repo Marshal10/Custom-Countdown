@@ -127,3 +127,30 @@ li{
   list-style-type: none;
   padding: 10px;
 }
+
+.complete-title{
+  animation: complete 4s infinite;
+}
+
+@keyframes complete{
+  0%{
+    color: rgb(201, 21, 21);
+  }
+
+  25%{
+    color: rgb(6, 6, 194);
+  }
+
+  50%{
+    color: rgb(125, 125, 20);
+    transform: scale(1.5);
+  }
+
+  75%{
+    color: rgb(247, 172, 32);
+  }
+
+  100%{
+    color: rgb(200, 0, 200);
+  }
+}
