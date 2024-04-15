@@ -16,6 +16,7 @@ let countdownTitle=''
 let countdownDate=''
 let countdownValue=Date
 let countdownInterval;
+let savedCountdown;
 
 const second =1000
 const minute=second * 60
@@ -24,8 +25,6 @@ const day=hour * 24
 
 const today=new Date().toISOString().split("T")[0]
 dateEl.setAttribute('min',today)
-
-console.log(today)
 
 function updateDom(){
     countdownInterval=setInterval(()=>{
@@ -60,9 +59,12 @@ function updateCountdown(e){
     e.preventDefault()
     countdownTitle=e.srcElement[0].value
     countdownDate=e.srcElement[1].value
-
+    savedCountdown={
+        title:countdownTitle,
+        date:countdownDate
+    }
+    localStorage.setItem("countdown",JSON.stringify(savedCountdown))
     countdownValue=new Date(countdownDate).getTime()
-    console.log(countdownValue)
     updateDom()
 }
 
@@ -74,8 +76,22 @@ function reset(){
     clearInterval(countdownInterval)
     countdownTitle=''
     countdownDate=''
+    localStorage.removeItem("countdown")
+}
+
+function restorePreviousCountdown(){
+    if(localStorage.getItem("countdown")){
+        inputContainer.hidden=true
+        savedCountdown=JSON.parse(localStorage.getItem("countdown"))
+        countdownTitle=savedCountdown.title
+        countdownDate=savedCountdown.date
+        countdownValue=new Date(countdownDate).getTime()
+        updateDom()
+    }
 }
 
 formEl.addEventListener('submit',updateCountdown)
 resetBtn.addEventListener('click',reset)
 newCountdownBtn.addEventListener('click',reset)
+
+restorePreviousCountdown()
